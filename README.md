@@ -9,6 +9,6 @@ dotnet run
 
 **To run frontend**
 ```bash
-cd .\backend\todo-app\
+cd .\frontend\todo-app\
 ng serve
 ```
