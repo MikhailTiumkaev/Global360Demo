@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed, viewChild, effect } from '@angular/core';
+import { Component, inject, signal, computed, viewChild } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { TodoFormComponent } from '../todo-form/todo-form.component'
 import { CommonModule, DatePipe } from '@angular/common';
@@ -20,19 +20,15 @@ export class TodoListComponent {
   readonly searchInput = viewChild<HTMLInputElement>('searchInput');
   
   // Signals from service
-  readonly todos = this.todoService.filteredTodos;
+  readonly todos = this.todoService.todos;
   readonly loading = this.todoService.loading;
   readonly error = this.todoService.error;
   
   // Local signals
-  readonly showCompleted = signal<boolean>(true);
   readonly selectedTodoId = signal<number | null>(null);
-  
-  constructor() {}
 
-  // Computed filtered and sorted todos
+  // Computed sorted todos
   readonly displayedTodos = computed(() => {
-    
     return this.todos().sort(a=>a.createdAt.getTime())
   });
 

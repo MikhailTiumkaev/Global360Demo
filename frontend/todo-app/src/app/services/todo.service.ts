@@ -1,9 +1,8 @@
 import { Injectable, inject, signal, computed, DestroyRef } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, of, tap, switchMap } from 'rxjs';
 import { Todo, CreateTodo } from '../models/todo.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -18,13 +17,11 @@ export class TodoService {
   private readonly todosSignal = signal<Todo[]>([]);
   private readonly loadingSignal = signal<boolean>(false);
   private readonly errorSignal = signal<string | null>(null);
-  private readonly searchTermSignal = signal<string>('');
   
   // Public readonly signals
   public readonly todos = this.todosSignal.asReadonly();
   public readonly loading = this.loadingSignal.asReadonly();
   public readonly error = this.errorSignal.asReadonly();
-  public readonly searchTerm = this.searchTermSignal.asReadonly();
   
   constructor() {
     this.loadTodos();
@@ -54,16 +51,6 @@ export class TodoService {
     ).subscribe();
   }
 
-  public readonly filteredTodos = computed(() => {
-    const term = this.searchTerm().toLowerCase();
-    if (!term) return this.todos();
-    
-    return this.todos().filter(t => 
-      t.title.toLowerCase().includes(term) ||
-      t.description.toLowerCase().includes(term)
-    );
-  });
-
   getTodo(id: number): Observable<Todo> {
     return this.http.get<Todo>(`${this.apiUrl}/${id}`).pipe(
       map(t => ({
@@ -72,7 +59,6 @@ export class TodoService {
       }))
     );
   }
-
 
   createTodo(todo: CreateTodo): Observable<Todo> {
     this.loadingSignal.set(true);
@@ -108,10 +94,6 @@ export class TodoService {
         throw error;
       })
     );
-  }
-
-  setSearchTerm(term: string): void {
-    this.searchTermSignal.set(term);
   }
 
   clearError(): void {

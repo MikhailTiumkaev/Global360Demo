@@ -110,112 +110,6 @@ label {
   display: block;
 }
 
-.priority-selector {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.priority-option {
-  flex: 1;
-  padding: 0.6rem;
-  border: 2px solid #e0e0e0;
-  background: white;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.3s;
-  min-width: 70px;
-}
-
-.priority-option:hover {
-  background: #f5f5f5;
-}
-
-.priority-option.selected {
-  border-color: var(--priority-color);
-  background: var(--priority-color);
-  color: white;
-}
-
-.tag-input-container {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.tag-input {
-  flex: 1;
-  padding: 0.6rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 6px;
-  font-size: 0.9rem;
-}
-
-.tag-input:focus {
-  outline: none;
-  border-color: #667eea;
-}
-
-.btn-add-tag {
-  padding: 0.6rem 1rem;
-  background: #667eea;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background 0.3s;
-  white-space: nowrap;
-}
-
-.btn-add-tag:hover:not(:disabled) {
-  background: #5a67d8;
-}
-
-.btn-add-tag:disabled {
-  background: #cbd5e0;
-  cursor: not-allowed;
-}
-
-.tags-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.tag-item {
-  background: #e3f2fd;
-  color: #1976d2;
-  padding: 0.3rem 0.6rem;
-  border-radius: 16px;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.remove-tag {
-  background: none;
-  border: none;
-  color: #1976d2;
-  cursor: pointer;
-  padding: 0 0.2rem;
-  font-size: 0.8rem;
-  opacity: 0.6;
-  transition: opacity 0.3s;
-}
-
-.remove-tag:hover {
-  opacity: 1;
-}
-
-.tag-limit {
-  margin-top: 0.3rem;
-  color: #f39c12;
-  font-size: 0.8rem;
-}
-
 .form-actions {
   display: flex;
   gap: 1rem;
@@ -249,22 +143,6 @@ label {
   cursor: not-allowed;
 }
 
-.btn-reset {
-  padding: 1rem 2rem;
-  background: white;
-  color: #666;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.btn-reset:hover {
-  background: #f5f5f5;
-  border-color: #999;
-}
-
 .spinner-small {
   display: inline-block;
   width: 16px;
@@ -285,19 +163,7 @@ label {
     grid-template-columns: 1fr;
   }
   
-  .priority-selector {
-    flex-direction: column;
-  }
-  
-  .priority-option {
-    width: 100%;
-  }
-  
   .form-actions {
     flex-direction: column;
-  }
-  
-  .btn-reset {
-    width: 100%;
   }
 }

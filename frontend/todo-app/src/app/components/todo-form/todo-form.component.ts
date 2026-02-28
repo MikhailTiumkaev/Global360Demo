@@ -17,17 +17,17 @@ export class TodoFormComponent {
   private readonly todoService = inject(TodoService);
   
   todoForm: FormGroup;
-  isExpanded = signal<boolean>(false);
   submitting = signal<boolean>(false);
-  
-  readonly tags = signal<string[]>([]);
-  readonly tagInput = signal<string>('');
 
   constructor() {
     this.todoForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]],
       description: ['', Validators.maxLength(1000)]
     });
+  }
+
+  resetForm(): void {
+    this.todoForm.reset();
   }
 
   onSubmit(): void {
@@ -57,6 +57,8 @@ export class TodoFormComponent {
         this.submitting.set(false);
       }
     });
+
+    this.resetForm();
   }
 
   get titleControl() { return this.todoForm.get('title'); }
