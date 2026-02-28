@@ -1,0 +1,56 @@
+<div class="todo-form-container">
+    <form [formGroup]="todoForm" (ngSubmit)="onSubmit()" class="todo-form">
+      <div class="form-group">
+        <label for="title">
+          Title *          
+        </label>
+        <input 
+          id="title"
+          type="text" 
+          formControlName="title" 
+          placeholder="What needs to be done?"
+          class="form-control"
+          [class.invalid]="titleControl?.invalid && titleControl?.touched"
+          appAutoFocus
+        >
+        @if (titleControl?.invalid && titleControl?.touched) {
+          <div class="error-messages">
+            @if (titleControl?.errors?.['required']) {
+              <span>Title is required</span>
+            }
+            @if (titleControl?.errors?.['minlength']) {
+              <span>Minimum 3 characters required</span>
+            }
+            @if (titleControl?.errors?.['maxlength']) {
+              <span>Maximum 200 characters</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea 
+          id="description"
+          formControlName="description" 
+          placeholder="Add more details (optional)"
+          class="form-control"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button 
+          type="submit" 
+          [disabled]="todoForm.invalid || submitting()" 
+          class="btn-submit">
+          @if (submitting()) {
+            <span class="spinner-small"></span>
+            Creating...
+          } @else {
+            ✨ Create Task
+          }
+        </button>
+      </div>
+    </form>
+</div>

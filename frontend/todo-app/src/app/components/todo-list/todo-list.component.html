@@ -1,0 +1,76 @@
+<div class="todo-container">
+  <!-- Header with Statistics -->
+  <header class="app-header">
+    <div class="header-content">
+      <h1>
+        <span class="header-icon">📋</span>
+        Global360 Demo - ToDo List
+      </h1>
+      <button class="btn-refresh" (click)="refresh()" [disabled]="loading()">
+        ⟳ Refresh
+      </button>
+    </div>    
+  </header>
+
+  <!-- Create Todo Form -->
+  <app-todo-form (todoCreated)="refresh()"></app-todo-form>
+
+  <!-- Loading State -->
+  @if (loading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading tasks...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (error(); as errorMessage) {
+    <div class="error-state">
+      <span class="error-icon">⚠️</span>
+      <span>{{ errorMessage }}</span>
+      <button class="btn-dismiss" (click)="clearError()">Dismiss</button>
+    </div>
+  }
+
+  <!-- Todo Grid -->
+  @if (!loading()) {
+    <div class="todo-grid">
+      @for (todo of displayedTodos(); track todo.id) {
+        <div 
+          class="todo-card"
+          [class.selected]="isSelected(todo.id)">
+          
+          <div class="todo-header">
+            <h3>{{ todo.title }}</h3>
+          </div>
+          
+          @if (todo.description) {
+            <p class="description">{{ todo.description }}</p>
+          }
+          
+          <div class="todo-meta">
+            <div class="meta-row">
+              <span class="meta-icon">📅</span>
+              <span class="meta-text">Created: {{ todo.createdAt | date:'medium' }}</span>
+            </div>                        
+          </div>
+          
+          <div class="todo-actions">            
+            <button 
+              class="btn-delete" 
+              (click)="deleteTodo(todo.id)"
+              [disabled]="isSelected(todo.id)">
+              🗑️ Delete
+            </button>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-state">
+          <div class="empty-icon">✨</div>
+          <h3>No tasks found</h3>
+          <p>Create your first task above to get started!</p>
+        </div>
+      }
+    </div>
+  }
+</div>
